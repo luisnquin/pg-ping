@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/thecasualcoder/pg-ping/cmd"
+	"github.com/luisnquin/pg-ping/cmd"
 	"github.com/urfave/cli"
 )
 
@@ -13,7 +13,7 @@ var version string
 const defaultVersion = "dev"
 
 func main() {
-	var app = cli.NewApp()
+	app := cli.NewApp()
 	if version == "" {
 		version = defaultVersion
 	}

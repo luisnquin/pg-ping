@@ -6,7 +6,7 @@ import (
 	"os"
 
 	prettyjson "github.com/hokaccha/go-prettyjson"
-	"github.com/thecasualcoder/pg-ping/pkg/pg"
+	"github.com/luisnquin/pg-ping/pkg/pg"
 	"github.com/urfave/cli"
 )
 
