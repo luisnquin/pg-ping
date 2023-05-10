@@ -35,6 +35,6 @@ func (t QueryTime) MarshalJSON() ([]byte, error) {
 }
 
 const (
-	success QueryStatus = "success"
-	failure QueryStatus = "failed"
+	Success QueryStatus = "success"
+	Failure QueryStatus = "failed"
 )

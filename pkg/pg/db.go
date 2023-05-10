@@ -70,7 +70,7 @@ func executeQuery(db *sql.DB, query string) SQLResult {
 	res.TimeTaken = QueryTime(time.Since(start).Seconds() * 1000)
 
 	if err != nil {
-		res.Status = failure
+		res.Status = Failure
 		res.Message = err.Error()
 		return res
 	}
@@ -79,13 +79,13 @@ func executeQuery(db *sql.DB, query string) SQLResult {
 	for rows.Next() {
 		var message string
 		if err := rows.Scan(&message); err != nil {
-			res.Status = failure
+			res.Status = Failure
 			res.Message = err.Error()
 			return res
 		}
 
 		res.Message = message
-		res.Status = success
+		res.Status = Success
 
 	}
 

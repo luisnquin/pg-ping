@@ -26,6 +26,11 @@ func Execute(app *cli.App) error {
 			Usage:  "Print debug logs",
 			EnvVar: "PGPING_DEBUG",
 		},
+		cli.BoolFlag{
+			Name:   "exit-on-success",
+			Usage:  "Exits the program on success",
+			EnvVar: "PGPING_EXIT_ON_SUCCESS",
+		},
 		cli.StringFlag{
 			Name:   "username, U",
 			Usage:  "Username to connect to postgres",
@@ -96,13 +101,22 @@ func run(c *cli.Context) error {
 	}
 
 	formatter := prettyjson.NewFormatter()
-
 	formatter.Newline = ""
 	formatter.Indent = 0
 
+	exitOnSuccess := c.Bool("exit-on-success")
+
 	for r := range resultChan {
-		data, _ := formatter.Marshal(r)
-		fmt.Println(string(data))
+		data, err := formatter.Marshal(r)
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Fprintf(os.Stdout, "%s\n", data)
+
+		if exitOnSuccess && r.Status == pg.Success {
+			break
+		}
 	}
 
 	return nil
