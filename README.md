@@ -5,7 +5,7 @@
 ## Installation
 
 ```bash
-# Go 1.12>=
+# Go 1.18>=
 go install github.com/luisnquin/pg-ping@latest 
 ```
 
