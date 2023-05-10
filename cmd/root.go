@@ -13,7 +13,7 @@ import (
 // Execute the app
 func Execute(app *cli.App) error {
 	app.Name = "pg-ping"
-	app.Usage = "Ping your postgres continously"
+	app.Usage = "Ping your postgres continuously"
 	app.Action = run
 	app.Flags = []cli.Flag{
 		cli.BoolFlag{

@@ -1,21 +1,19 @@
 # pg-ping
 
-`pg-ping` is a command line utility to continously ping your postgres. This is useful to check if there is downtime when doing changes to your postgres instance.
+`pg-ping` is a command line utility to continuously ping your postgres. This is useful for checking for downtime when making changes to your Postgres instance.
 
 ## Installation
 
-Using Homebrew
-
 ```bash
-brew tap thecasualcoder/stable
-brew install pg-ping
+# Go 1.12>=
+go install github.com/luisnquin/pg-ping@latest 
 ```
 
 ## Usage
 
 ```bash
 NAME:
-   pg-ping - Ping your postgres continously
+   pg-ping - Ping your postgres continuously
 
 USAGE:
    pg-ping [global options] command [command options] [arguments...]
@@ -42,19 +40,10 @@ GLOBAL OPTIONS:
 ## Example
 
 ```bash
-$ pg-ping -U myuser -h myhost -d mydb -c 'SELECT 1'
-{"Value":"1","TimeTakenInMS":0.408563,"Failed":false,"FailureMessage":""}
-{"Value":"1","TimeTakenInMS":0.46392500000000003,"Failed":false,"FailureMessage":""}
-{"Value":"","TimeTakenInMS":0.634099,"Failed":true,"FailureMessage":"dial tcp 10.134.125.111:5432: connect: connection refused"} # Downtime
-{"Value":"","TimeTakenInMS":0.402107,"Failed":true,"FailureMessage":"dial tcp 10.134.125.111:5432: connect: connection refused"}
-{"Value":"1","TimeTakenInMS":10.726904000000001,"Failed":false,"FailureMessage":""}
-{"Value":"1","TimeTakenInMS":0.372709,"Failed":false,"FailureMessage":""}
-{"Value":"1","TimeTakenInMS":0.429533,"Failed":false,"FailureMessage":""}
-```
-
-## Build locally
-
-```
-git clone https://github.com/thecasualcoder/pg-ping.git
-make compile
-```
+$ pg-ping -U 'username' -p 'pwd' -d 'dbname' -h 'localhost:5432'
+{"message":"dial tcp [::1]:5432: connect: connection refused","status":"failed","time_taken":"2.209ms","timestamp":"20:09:30"}
+{"message":"5","status":"success","time_taken":"1082.709ms","timestamp":"20:09:31"}
+{"message":"5","status":"success","time_taken":"84.863ms","timestamp":"20:09:32"}
+{"message":"5","status":"success","time_taken":"0.891ms","timestamp":"20:09:33"}
+{"message":"5","status":"success","time_taken":"0.893ms","timestamp":"20:09:34"}
+{"message":"5","status":"success","time_taken":"1.185ms","timestamp":"20:09:35"}```
