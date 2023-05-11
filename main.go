@@ -10,13 +10,13 @@ import (
 
 var version string
 
-const defaultVersion = "dev"
-
 func main() {
 	app := cli.NewApp()
+
 	if version == "" {
-		version = defaultVersion
+		version = "dev"
 	}
+
 	app.Version = version
 
 	cli.HelpFlag = cli.BoolFlag{Name: "help"}

@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"encoding/json"
 	"fmt"
 	"os"
 
@@ -10,7 +9,7 @@ import (
 	"github.com/urfave/cli"
 )
 
-// Execute the app
+// Execute the app.
 func Execute(app *cli.App) error {
 	app.Name = "pg-ping"
 	app.Usage = "Ping your postgres continuously"
@@ -63,14 +62,17 @@ func Execute(app *cli.App) error {
 			Value:  "SELECT 1",
 		},
 	}
+
 	return app.Run(os.Args)
 }
 
 func run(c *cli.Context) error {
 	if len(c.Args()) > 0 {
 		cli.ShowAppHelp(c)
+
 		return fmt.Errorf("args are not allowed")
 	}
+
 	conf := pg.Config{
 		Username:      c.String("username"),
 		Password:      c.String("password"),
@@ -80,16 +82,11 @@ func run(c *cli.Context) error {
 		Query:         c.String("query"),
 	}
 
-	encoder := json.NewEncoder(os.Stdout)
-
-	if c.BoolT("debug") {
-		encoder.Encode(conf)
-	}
-
 	db, err := pg.NewDB(conf)
 	if err != nil {
 		return err
 	}
+
 	defer db.Close()
 
 	var resultChan <-chan pg.SQLResult
